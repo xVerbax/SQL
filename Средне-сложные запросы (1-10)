@@ -1,0 +1,58 @@
+1) В какие города можно улететь из *** (***) и сколько времени это займёт?
+SELECT town_to,
+  TIMEDIFF(time_in, time_out) as flight_time
+from Trip
+WHERE town_from = 'Paris';
+
+2) Вывести вылеты, совершенные с 10 ч. по 14 ч. 1 января 1900 г.
+SELECT *
+from Trip
+WHERE time_out BETWEEN '1900-01-01T10' AND '1900-01-01T14';
+
+3) Вывести пассажиров с самым длинным именем
+SELECT name
+FROM Passenger
+ORDER BY LENGTH(name) DESC
+LIMIT 1
+
+4) Узнать, кто старше всех в семьe
+SELECT member_name
+FROM FamilyMembers
+ORDER BY birthday
+LIMIT 1
+
+5) Найдите самый дорогой деликатес (delicacies) и выведите его стоимость
+SELECT good_name,
+  max(unit_price) as unit_price
+FROM GoodTypes
+  JOIN Goods ON GoodTypes.good_type_id = Goods.type
+  JOIN Payments on Goods.good_id = Payments.good
+WHERE good_type_name = 'delicacies'
+
+6) Выведите имена пассажиров улетевших в Москву (Moscow) на самолете TU-134
+SELECT DISTINCT name
+FROM Passenger
+  JOIN Pass_in_trip on Passenger.id = Pass_in_trip.passenger
+  JOIN Trip on Pass_in_trip.trip = Trip.id
+WHERE town_to = 'Moscow'
+  AND plane = 'TU-134';
+  
+  7) Вывести всех членов семьи с фамилией Quincey.
+  SELECT *
+FROM FamilyMembers
+WHERE member_name LIKE '%Quincey%';
+
+8) В каких классах введет занятия преподаватель "Krauze" ?
+SELECT DISTINCT name
+FROM Class
+  JOIN Schedule on Class.id = Schedule.class
+  join Teacher on Schedule.teacher = Teacher.id
+where last_name = 'Krauze'
+
+9) Добавьте в список типов товаров (GoodTypes) новый тип "auto".
+INSERT INTO GoodTypes
+VALUES (9, 'auto')
+
+10) Удалить всех членов семьи с фамилией "Quincey".
+DELETE from FamilyMembers
+WHERE member_name LIKE '%Quincey%'
