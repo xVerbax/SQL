@@ -20,3 +20,33 @@ WHERE name LIKE '%man';
 SELECT COUNT(*) as count
 FROM Trip
 WHERE plane = 'TU-134';
+
+6) Какие компании совершали перелеты на Boeing
+SELECT distinct name
+FROM Company
+  JOIN trip ON company.id = trip.company
+WHERE plane = 'Boeing';
+
+7) Вывести все названия самолётов, на которых можно улететь в Москву (Moscow)
+SELECT distinct plane
+from trip
+where town_to = 'Moscow';
+
+8) Какие компании организуют перелеты с Владивостока (Vladivostok)?
+SELECT name
+FROM Company
+  JOIN Trip ON company.id = trip.company
+WHERE town_to = 'Vladivostok';
+
+9) Вывести id и количество пассажиров для всех прошедших полётов
+SELECT trip,
+  COUNT(passenger) as COUNT
+from Pass_in_trip
+GROUP BY trip;
+
+10) В какие города летал Bruce Willis
+SELECT town_to
+from Trip
+  JOIN Pass_in_trip on Pass_in_trip.trip = Trip.id
+  JOIN Passenger on Passenger.id = Pass_in_trip.passenger
+WHERE name = 'Bruce Willis';
