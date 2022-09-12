@@ -1,0 +1,30 @@
+11) Во сколько Стив Мартин (Steve Martin) прилетел в Лондон (London)
+SELECT time_in
+from Trip
+  JOIN Pass_in_trip ON Trip.id = Pass_in_trip.trip
+  JOIN Passenger ON Pass_in_trip.passenger = Passenger.id
+WHERE name = 'Steve Martin'
+  AND town_to = 'London';
+  
+  12) Определить, кто из членов семьи покупал картошку (potato)
+  SELECT DISTINCT status
+FROM FamilyMembers
+  JOIN Payments on FamilyMembers.member_id = Payments.family_member
+  JOIN Goods ON Payments.good = Goods.good_id
+WHERE good_name = 'potato';
+
+13) Найти имена всех матерей (mother)
+SELECT member_name
+FROM FamilyMembers
+WHERE status = 'mother';
+
+14) Сколько рейсов совершили авиакомпании с Ростова (Rostov) в Москву (Moscow) ?
+SELECT COUNT(*) as count
+FROM trip
+WHERE town_from = 'Rostov'
+  and town_to = 'Moscow';
+  
+  15) Сколько всего 10-ых классов
+  SELECT COUNT(name) as count
+  FROM Class
+  where name like '10__'
