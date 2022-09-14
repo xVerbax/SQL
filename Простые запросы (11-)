@@ -28,3 +28,22 @@ WHERE town_from = 'Rostov'
   SELECT COUNT(name) as count
   FROM Class
   where name like '10__'
+  
+  16) Выведите информацию об обучающихся живущих на улице Пушкина (ul. Pushkina)?
+  SELECT *
+from Student
+where address LIKE 'ul. Pushkina%';
+
+17) Сколько Анн (Anna) учится в школе ?
+select COUNT(*) as count
+from Student
+where first_name = 'Anna';
+
+18) Измените имя "Andie Quincey" на новое "Andie Anthony".
+UPDATE FamilyMembers
+SET member_name = 'Andie Anthony'
+WHERE member_name = 'Andie Quincey'
+
+19) Удалить все перелеты, совершенные из Москвы (Moscow).
+DELETE from Trip
+WHERE town_from = 'Moscow';
