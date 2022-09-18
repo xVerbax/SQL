@@ -94,5 +94,87 @@ FROM
 	products_data_all
     where category = 'молоко и сливки'
     
+   13) Напиши запрос, который посчитает общее количество уникальных продуктов в каждом магазине (name_store). Выведи название магазина, общее количество продуктов, 
+   количество уникальных продуктов. Назови поля с количеством name_cnt и name_uniq_cnt соответственно.
+   SELECT 
+	name_store, count(name) as name_cnt, count(distinct name) as name_uniq_cnt
+FROM
+	products_data_all
+GROUP BY
+	name_store
+	
+  14) Напиши запрос, который подсчитает значение максимального веса в каждой категории (category). Назови поле max_weight. Выведи категорию и максимальный вес.
+  SELECT 
+	category, max(weight :: real) as max_weight
+FROM
+	products_data_all
+GROUP BY category
+
+ 15) Напиши запрос, который посчитает среднюю, максимальную и минимальную цены (price) товаров каждого магазина (name_store) в таблице products_data_all.
+ Назови переменные соответственно average_price, max_price, min_price.
+   SELECT 
+	name_store,
+    avg(price) as  average_price,
+    max(price) as max_price,
+    min(price) as min_price
+FROM
+	products_data_all
+GROUP BY
+	name_store
+	
+  16) Напиши запрос, который посчитает разницу максимальной и минимальной цены каждого продукта в категории 'масло сливочное и маргарин' на 10 июня 2019 года. 
+  Назови переменную max_min_diff. Переведи строковые значения дат в формат даты.
+  SELECT 
+	name,
+    max(price) - min(price) as max_min_diff
+FROM
+	products_data_all
+WHERE
+	category = 'масло сливочное и маргарин' and date_upd :: date = '2019-06-10'
+GROUP BY name
+
+ 17) Напиши запрос, который посчитает количество товаров в каждой категории (category) на дату '2019-06-05'. 
+ Назови переменную name_cnt и отсортируй данные по возрастанию количества товаров. 
+ Выведи дату, категорию, количество товаров
+ SELECT 
+    date_upd::date as update_date,
+    category,
+    COUNT(name) AS name_cnt
+FROM
+    products_data_all
+WHERE
+    date_upd::date = '2019-06-05'
+GROUP BY 
+    category, update_date
+ORDER BY 
+    name_cnt asc
     
+   18) Напиши запрос, который посчитает количество уникальных продуктов в каждой категории в магазине 'Lentro' на '2019-06-30'. 
+Назови переменную uniq_name_cnt и отсортируй количество уникальных продуктов по убыванию.
+SELECT 
+	date_upd :: date as update_date,
+    name_store, 
+    category, 
+    count(distinct name) as uniq_name_cnt
+  FROM
+	products_data_all
+WHERE name_store = 'Lentro' and
+date_upd :: date = '2019-06-30'
+GROUP BY update_date, name_store, category
+	
+ORDER BY 
+	uniq_name_cnt desc
+	
+   19) Напиши запрос, который выведет топ-5 самых дорогих продуктов по убыванию. Выведи название продукта и стоимость. 
+   SELECT 
+	name, max(price) as max_price
+FROM
+	products_data_all
+GROUP BY 
+name
+ORDER BY max_price desc
+limit 5
+
+ 
+
 
